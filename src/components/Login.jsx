@@ -27,6 +27,11 @@ function Login() {
     const login = async (e) => {
         e.preventDefault();
 
+        if (!formData.email.trim() || !formData.password.trim()) {
+            setError('Make sure all fields are filled out!');
+            return;
+        }
+
         setLoading(true);
 
         try {

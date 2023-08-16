@@ -19,7 +19,7 @@ function UserDropdown() {
   return user ? (
     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
       <li><Link to="/profile">View Profile</Link></li>
-      <li><Link onClick={logout}>Logout</Link></li>
+      <li><Link to="/" onClick={logout}>Logout</Link></li>
     </ul>
   ) : (
     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,12 +52,15 @@ function NavBar() {
         </div>
 
         <ul className="top-menu list-inline mb-0 d-none d-lg-block" id="top-menu">
-          <li className="list-inline-item"><a href="/cart"><i className="tf-ion-android-cart"></i></a></li>
+          <li className="list-inline-item">
+            <Link to={'/cart'}><i className="tf-ion-android-cart"></i></Link>
+          </li>
+
           <li className="list-inline-item nav-item dropdown dropdown-slide">
-            <a className="nav-link dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-delay="350"
+            <Link to={'/profile'} className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-delay="350"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i className="tf-ion-ios-person mr-3"></i>
-            </a>
+            </Link>
 
             <UserDropdown />
           </li>

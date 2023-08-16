@@ -1,15 +1,15 @@
-const apiUrl = process.env.REACT_APP_BASE_URL;
+const apiUrl = process.env.REACT_APP_BASE_URL + "/orders";
 
 const getOrders = async (userId) => {
     try {
-        const response = await fetch(`${apiUrl}/order/${userId}`, {
+        const response = await fetch(`${apiUrl}/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
         });
         const data = await response.json();
-        return data;
+        return data.orders;
     } catch (error) {
         console.log(error);
     }
@@ -17,7 +17,7 @@ const getOrders = async (userId) => {
 
 const addOrder = async (order) => {
     try {
-        const response = await fetch(`${apiUrl}/order/add`, {
+        const response = await fetch(`${apiUrl}/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

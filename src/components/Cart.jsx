@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { UserContext } from '../UserProvider';
 import cartService from '../services/cartService';
 
 function Cart(){
-    const { user } = useContext(UserContext);
+    const navigate = useNavigate();
+    const { user, loading } = useContext(UserContext);
     const [cart, setCart] = useState(null);
-    
+
+    useEffect(() => {
+        if (!loading && !user) {
+            toast.warn('You need to login first!');
+            navigate("/login");
+        }
+    }, [user, navigate, loading]);
 
     useEffect(() => {
         // Fetching cart data from the cartApi
