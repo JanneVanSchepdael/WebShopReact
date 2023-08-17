@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import productService from '../services/productService';
 
-function ProductList() {
+function ProductList({ searchTerm, page, amount, minDaysOld, maxDaysOld, orderBy}) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -11,14 +11,14 @@ function ProductList() {
         try {
             setLoading(true);
             setError(null);
-            const data = await productService.getAll();
+            const data = await productService.getAll({ searchTerm, page, amount, minDaysOld, maxDaysOld, orderBy});
             setProducts(data);
         } catch (err) {
             setError(err);
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [searchTerm, page, amount, minDaysOld, maxDaysOld, orderBy]);
 
     useEffect(() => {
         refreshProducts();

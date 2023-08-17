@@ -15,17 +15,25 @@ const getOrders = async (userId) => {
     }
 }
 
-const addOrder = async (order) => {
+const addOrder = async (cart) => {
+    const transformedCart = {
+        userId: cart.userId,
+        items: cart.items.map(item => ({
+            productId: item.product.id,
+            quantity: item.quantity
+        }))
+    };
+    
     try {
-        const response = await fetch(`${apiUrl}/add`, {
+        const response = await fetch(`${apiUrl}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(order)
+            body: JSON.stringify({order: transformedCart})
         });
         const data = await response.json();
-        return data;
+        return data.order;
     } catch (error) {
         console.log(error);
     }

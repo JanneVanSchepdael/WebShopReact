@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { UserContext } from '../UserProvider';
 import cartService from '../services/cartService';
+import orderService from '../services/orderService';
+
 
 function Cart(){
     const navigate = useNavigate();
@@ -58,7 +60,7 @@ function Cart(){
                 updatedCart.items = updatedCart.items.filter(i => i.id !== item.id);
                 setCart(updatedCart);
 
-                await cartService.editCart(cart);
+                await cartService.editCart(updatedCart);
                 toast.success("Product removed from cart.");
             } catch (error) {
                 toast.error("Error removing item from cart.");
@@ -67,8 +69,21 @@ function Cart(){
         }
     };
 
-    const order = () => {
-        toast.info("This function has not been implemented.");
+    const order = async () => {
+        if(cart.items.length === 0){
+            toast.error("Your cart is empty!");
+            return;
+        }
+
+        try{
+            await orderService.addOrder(cart);
+            setCart({userId: user.id,
+                 items: []})
+            toast.success("Order placed successfully!");
+        } catch(error){
+            toast.error("Error placing order.");
+        }
+       
     };
 
 
@@ -80,6 +95,9 @@ function Cart(){
                     <div className="row justify-content-center">
                         <div className="col-lg-12">
                             <div className="product-list">
+                            {cart.items.length === 0 ? (
+                                <h6>Your cart is empty!</h6>
+                                ) : (
                                 <form className="cart-form">
                                     <table className="table shop_table shop_table_responsive cart" cellSpacing="0">
                                         <thead>
@@ -98,7 +116,7 @@ function Cart(){
                                                 <tr className="cart_item" key={item.id}>
                                                     <td className="product-thumbnail" data-title="Thumbnail">
                                                         <Link to={`/products/${item.product.id}`}>
-                                                            <img src="/images/cart-1.jpg" className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" />
+                                                            <img src="/images/product-3.jpg" className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" />
                                                         </Link>
                                                     </td>
     
@@ -129,6 +147,7 @@ function Cart(){
                                         </tbody>
                                     </table>
                                 </form>
+                                )}
                             </div>
                         </div>
                     </div>

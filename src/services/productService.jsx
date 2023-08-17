@@ -1,8 +1,29 @@
 const apiUrl = process.env.REACT_APP_BASE_URL;
 
-const getAll = async () => {
+const getAll = async (params) => {
+  let url = new URL(`${apiUrl}/products`);
+
   try {
-    const response = await fetch(`${apiUrl}/products`);
+    if (params.searchTerm) {
+      url.searchParams.append('searchTerm', params.searchTerm);
+  }
+  if (params.page) {
+      url.searchParams.append('page', params.page);
+  }
+  if (params.amount) {
+      url.searchParams.append('amount', params.amount);
+  }
+  if (params.minDaysOld) {
+      url.searchParams.append('minDaysOld', params.minDaysOld);
+  }
+  if (params.maxDaysOld) {
+      url.searchParams.append('maxDaysOld', params.maxDaysOld);
+  }
+  if (params.orderBy) {
+      url.searchParams.append('orderBy', params.orderBy);
+  }
+
+    const response = await fetch(url.toString());
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

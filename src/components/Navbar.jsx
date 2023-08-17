@@ -24,6 +24,7 @@ function UserDropdown() {
   ) : (
     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
       <li><Link to="/login">Login</Link></li>
+      <li><Link to="/register">Register</Link></li>
     </ul>
   );
 }

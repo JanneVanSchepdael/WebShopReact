@@ -86,7 +86,7 @@ function Profile() {
                                         <div className="form-group">
                                             <label>First Name</label>
                                             <input 
-                                                value={user.firstName} 
+                                                value={user.firstName || ""} 
                                                 onChange={(e) => setUser({ ...user, firstName: e.target.value })} 
                                                 type="text" 
                                                 name="firstName" 
@@ -99,7 +99,7 @@ function Profile() {
                                         <div className="form-group">
                                             <label>Last Name</label>
                                             <input 
-                                                value={user.lastName} 
+                                                value={user.lastName || ""} 
                                                 onChange={(e) => setUser({ ...user, lastName: e.target.value })}
                                                 type="text" 
                                                 name="lastName" 
@@ -112,7 +112,7 @@ function Profile() {
                                         <div className="form-group mb-4">
                                             <label>Email address</label>
                                             <input 
-                                                value={user.email} 
+                                                value={user.email || ""} 
                                                 onChange={(e) => setUser({ ...user, email: e.target.value })}
                                                 type="text" 
                                                 name="email" 

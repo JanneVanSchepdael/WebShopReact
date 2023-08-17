@@ -74,7 +74,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <ProductList />
+                    <ProductList page={1} amount={6} maxDaysOld={7}/>
                 </div>
             </section>
         </>

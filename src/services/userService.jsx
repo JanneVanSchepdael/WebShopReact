@@ -38,10 +38,10 @@ const register = async (formData) => {
 
 const updateUser = async (formData) => {
     try {
-        const response = await fetch(`${apiUrl}/update`, {
+        const response = await fetch(`${apiUrl}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
+            body: JSON.stringify({user: formData})
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
